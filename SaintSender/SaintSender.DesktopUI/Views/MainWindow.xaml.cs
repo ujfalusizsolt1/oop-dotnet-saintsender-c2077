@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SaintSender.Services;
 
-namespace SaintSender.DesktopUI
+namespace SaintSender.DesktopUI.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
