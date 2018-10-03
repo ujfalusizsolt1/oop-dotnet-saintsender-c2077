@@ -1,25 +1,25 @@
-﻿using System;
+﻿using MimeKit;
+using SaintSender.Entities;
+using SaintSender.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SaintSender.Services;
-using SaintSender.Entities;
-using MimeKit;
 
 namespace SaintSender.Entities
 {
-    class Inbox
+    public class Inbox
     {
-        public List<Email> emails;
+        public List<Mail> Mails { get; private set; } = new List<Mail>();
 
-        public List<Email> GetMails()
+        public List<Mail> GetMails()
         {
-            /* 
+            /*
             get client
-            List<Email> result = new List<Email>;
+            List<Mail> result = new List<Mail>;
             var inbox = client.inbox;
-            
+
             for (int i = 0; i < inbox.Count; i++)
             {
                 result.Add(inbox.GetMessage(i));
@@ -27,6 +27,7 @@ namespace SaintSender.Entities
 
             return result;
             */
+            throw new NotImplementedException();
         }
 
         public void OpenMail(int id)
@@ -36,27 +37,23 @@ namespace SaintSender.Entities
             var inbox = client.inbox;
             inbox.GetMessage(id);
             */
-
         }
 
-        public void SendMail(Email toSend)
+        public void SendMail(Mail toSend)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("sender email"));
-            message.To.Add(new MailboxAddress("receiver email"));
+            message.From.Add(new MailboxAddress("sender Mail"));
+            message.To.Add(new MailboxAddress("receiver Mail"));
             message.Subject = toSend.Subject;
-            message.Body = toSend.Body;
+            //message.Body = toSend.Body;
         }
 
         public void SaveDraft()
         {
-
         }
 
         private void ReOpenDraft()
         {
-
         }
-
     }
 }
