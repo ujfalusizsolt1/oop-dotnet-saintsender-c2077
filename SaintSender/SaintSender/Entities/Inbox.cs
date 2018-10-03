@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SaintSender.Services;
 using SaintSender.Entities;
+using MimeKit;
 
 namespace SaintSender.Entities
 {
@@ -40,7 +41,11 @@ namespace SaintSender.Entities
 
         public void SendMail(Email toSend)
         {
-
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("sender email"));
+            message.To.Add(new MailboxAddress("receiver email"));
+            message.Subject = toSend.Subject;
+            message.Body = toSend.Body;
         }
 
         public void SaveDraft()
