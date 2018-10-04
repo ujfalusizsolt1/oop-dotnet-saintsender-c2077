@@ -42,12 +42,8 @@ namespace SaintSender.Entities
         public void SendMail(Mail toSend)
         {
             ImapClient client = conn.client;
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(toSend.Sender));
-            message.To.Add(new MailboxAddress(toSend.Reciever));
-            message.Subject = toSend.Subject;
-            message.Body = toSend.Content;
-            SaveDraft(message);
+            SaveDraft(toSend);
+            //var message = parser.ParseMessage(toSend);
 
             using (var sendingClient = new SmtpClient())
             {
