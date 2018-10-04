@@ -19,7 +19,7 @@
             <MenuItem Name="signIn" Header="Sign Out" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
 
             <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
-            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14"  />
+            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" Click="newEmail_Click"  />
         </Menu>
         <Grid DockPanel.Dock="Left">
             <Grid.ColumnDefinitions>

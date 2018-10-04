@@ -25,9 +25,14 @@ namespace SaintSender.DesktopUI.Views
 
         }
 
-        private void saveBtn_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-          
+            this.DialogResult = true;
+        }
+
+        private void cancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }

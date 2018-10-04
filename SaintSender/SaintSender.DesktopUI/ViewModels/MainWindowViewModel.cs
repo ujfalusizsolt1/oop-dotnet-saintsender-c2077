@@ -8,6 +8,7 @@ namespace SaintSender.DesktopUI.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private Mail _selectedMail;
+        public string LoggedIn { get; set; }
 
         public Inbox Inbox { get; set; }
 
@@ -21,11 +22,13 @@ namespace SaintSender.DesktopUI.ViewModels
             }
         }
         public bool isLoggedIn { get; internal set; }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindowViewModel(string userName, string password)
         {
+            LoggedIn = userName;
             Inbox = new Inbox(userName, password);
             Inbox.GetMails();
         }

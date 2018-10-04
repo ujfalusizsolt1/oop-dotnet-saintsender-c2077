@@ -7,9 +7,7 @@
         xmlns:viewmodel="clr-namespace:SaintSender.DesktopUI.ViewModels"
         mc:Ignorable="d"
         Title="InWatch - New email" Height="600" Width="1000" FontSize="14">
-    <Window.DataContext>
-        <viewmodel: />
-    </Window.DataContext>
+   
     <Window.Resources>
         <conv:EmailAddressListConverter x:Key="converter" />
     </Window.Resources>
@@ -24,8 +22,8 @@
             <TextBox HorizontalAlignment="Left" Name="recipients" Height="23" Margin="107,27,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="463" />
             <TextBox HorizontalAlignment="Left" Name="subject" Height="23" Margin="107,60,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="461"/>
             <TextBox HorizontalAlignment="Left" Name="message" Height="284" Margin="107,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="769"/>
-            <Button Content="Send" Name="saveBtn" HorizontalAlignment="Left" Margin="614,27,0,0" VerticalAlignment="Top" Width="110" Height="48" RenderTransformOrigin="0.146,1.152" MouseLeftButtonUp="saveBtn_MouseLeftButtonUp"/>
-            <Button Content="Cancel" Name="cancelBtn" HorizontalAlignment="Left" Margin="767,29,0,0" VerticalAlignment="Top" Width="109" Height="44"/>
+            <Button Content="Send" Name="saveBtn" HorizontalAlignment="Left" Margin="614,27,0,0" VerticalAlignment="Top" Width="110" Height="48" RenderTransformOrigin="0.146,1.152" Click="saveBtn_Click"/>
+            <Button Content="Cancel" Name="cancelBtn" HorizontalAlignment="Left" Margin="767,29,0,0" VerticalAlignment="Top" Width="109" Height="44" Click="cancelBtn_Click"/>
         </Grid>
     </DockPanel>
 </Window>
