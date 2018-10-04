@@ -5,7 +5,6 @@ namespace SaintSender.Entities
 {
     public class Mail
     {
-        public int Id { get; }
         public string Sender { get; }
         public List<string> Recievers { get; }
         public DateTime Date { get; }
@@ -13,9 +12,8 @@ namespace SaintSender.Entities
         public bool IsRead { get; set; }
         public string Content { get; }
 
-        public Mail(int id, string sender, List<string> recievers, DateTime date, string subject, bool isRead, string content)
+        public Mail(string sender, List<string> recievers, DateTime date, string subject, bool isRead, string content)
         {
-            Id = id;
             Sender = sender;
             Recievers = recievers;
             Date = date;
