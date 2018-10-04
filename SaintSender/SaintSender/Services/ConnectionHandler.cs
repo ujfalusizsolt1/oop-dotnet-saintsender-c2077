@@ -16,6 +16,8 @@ namespace SaintSender.Services
             client = TryToConnect();
         }
 
+        public bool isLoggedIn { get; set; } = false;
+
         public ImapClient TryToConnect()
         {
             var client = new ImapClient();
@@ -24,7 +26,6 @@ namespace SaintSender.Services
             client.Connect(ImapServer, ServerPort, true);
 
             client.Authenticate(UserName, Password);
-            var asd = client.Inbox.GetMessage(0);
             return client;
         }
 
