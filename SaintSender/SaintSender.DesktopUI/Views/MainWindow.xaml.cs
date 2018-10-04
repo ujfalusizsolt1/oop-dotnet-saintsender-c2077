@@ -41,10 +41,20 @@ namespace SaintSender.DesktopUI.Views
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("szex");
             ((MainWindowViewModel)DataContext).SelectedMail = null;
             mailListBox.SelectedItem = null;
             ((MainWindowViewModel)DataContext).Inbox.GetMails();
+        }
+
+        private void SignOut_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Upgrade_Click(object sender, RoutedEventArgs e)
+        {
+            var getPro = new GetProWindow();
+            getPro.Show();
         }
 
         private void newEmail_Click(object sender, RoutedEventArgs e)
