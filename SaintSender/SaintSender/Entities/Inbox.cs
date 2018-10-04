@@ -28,17 +28,15 @@ namespace SaintSender.Entities
         public List<Mail> GetMails()
         {
             ImapClient client = conn.client;
-            List<Mail> result = new List<Mail>();
             var inbox = client.Inbox;
             
             for (int i = 0; i < inbox.Count; i++)
             {
                 var msg = parser.ParseMessage(inbox.GetMessage(i));
-                result.Add(msg);
                 Mails.Add(msg);
             }
 
-            return result;
+            return Mails;
         }
 
         public void SendMail(Mail toSend)
