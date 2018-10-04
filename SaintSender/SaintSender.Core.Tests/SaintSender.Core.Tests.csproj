@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailAddressListConverterTests.cs" />
     <Compile Include="GreeterServiceTests.cs" />
     <Compile Include="MailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SaintSender.DesktopUI\SaintSender.DesktopUI.csproj">
+      <Project>{DBFBE048-8622-4E9D-9C58-47F6CD128972}</Project>
+      <Name>SaintSender.DesktopUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SaintSender\SaintSender.Core.csproj">
       <Project>{bb60aa70-e219-40fd-a048-061a618f809d}</Project>
       <Name>SaintSender.Core</Name>
