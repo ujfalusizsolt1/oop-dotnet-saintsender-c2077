@@ -9,6 +9,12 @@ namespace SaintSender.Services
         public string Password { get; private set; } = "SuperSecure1234";
         public string ImapServer { get; private set; } = "imap.gmail.com";
         public int ServerPort { get; private set; } = 993;
+        public ImapClient client { get; private set; }
+
+        public ConnectionHandler()
+        {
+            client = TryToConnect();
+        }
 
         public ImapClient TryToConnect()
         {
