@@ -6,61 +6,71 @@ using SaintSender.Entities;
 using SaintSender.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SaintSender.Entities
 {
-    public class Inbox
+    public class Inbox : INotifyPropertyChanged
     {
-        public List<Mail> Mails { get; private set; } = new List<Mail>();
+        public List<Mail> Mails
+        {
+            get { return _mails; }
+            private set
+            {
+                _mails = value;
+                OnPropertyRaised("Mails");
+            }
+        }
         private ConnectionHandler conn;
         private Mail draft;
+        private List<Mail> _mails = new List<Mail>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Inbox()
         {
             conn = new ConnectionHandler();
         }
 
-        public List<Mail> GetMails()
+        public Inbox(string userName, string password)
         {
-            ImapClient client = conn.client;
-            List<Mail> result = new List<Mail>();
-            var inbox = client.Inbox;
-
-            for (int i = 0; i < inbox.Count; i++)
-            {
-                var msg = inbox.GetMessage(i);
-                //result.Add(new Mail(int.Parse(msg.MessageId), msg.From.ToString(), msg.To.ToString(), DateTime.Parse(msg.Date), msg.Subject, false, msg.Body.ToString()));
-                //Mails.Add(inbox.GetMessage(i));
-            }
-
-            return result;
+            conn = new ConnectionHandler(userName, password);
         }
 
-        //public void SendMail(Mail toSend)
-        //{
-        //    ImapClient client = conn.client;
-        //    var message = new MimeMessage();
-        //    message.From.Add(new MailboxAddress(toSend.Sender));
-        //    message.To.Add(new MailboxAddress(toSend.Reciever));
-        //    message.Subject = toSend.Subject;
-        //    message.Body = toSend.Content;
-        //    SaveDraft(message);
+        public void GetMails()
+        {
+            ImapClient client = conn.Client;
+            var inbox = client.Inbox;
+            inbox.Open(MailKit.FolderAccess.ReadOnly);
 
-        //    using (var sendingClient = new SmtpClient())
-        //    {
-        //        sendingClient.Connect("smtp.gmail.com", 587);
+            for (int i = inbox.Count - 1; i >= 0; i--)
+            {
+                var msg = MessageParser.ParseMessage(inbox.GetMessage(i));
+                Mails.Add(msg);
+            }
+        }
 
-        //        // use the OAuth2.0 access token obtained above
-        //        var oauth2 = new SaslMechanismOAuth2("c2077test@gmail.com", credential.Token.AccessToken);
-        //        sendingClient.Authenticate(oauth2);
+        public void SendMail(Mail toSend)
+        {
+            ImapClient client = conn.Client;
+            SaveDraft(toSend);
+            var message = MessageParser.ConvertMessageToMail(toSend);
 
-        //        sendingClient.Send(message);
-        //        sendingClient.Disconnect(true);
-        //    }
-        //}
+            using (var sendingClient = new SmtpClient())
+            {
+                sendingClient.Connect("smtp.gmail.com", 587);
+
+                // disable the XOAUTH2 authentication mechanism.
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                sendingClient.Authenticate(conn.UserName, conn.Password);
+
+                sendingClient.Send(message);
+                sendingClient.Disconnect(true);
+            }
+        }
 
         public void SaveDraft(Mail newDraft)
         {
@@ -70,6 +80,11 @@ namespace SaintSender.Entities
         private Mail ReOpenDraft()
         {
             return draft;
+        }
+
+        protected void OnPropertyRaised(string propertyname)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
     }
 }

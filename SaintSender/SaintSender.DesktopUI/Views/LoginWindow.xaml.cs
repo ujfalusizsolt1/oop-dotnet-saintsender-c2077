@@ -23,5 +23,15 @@ namespace SaintSender.DesktopUI.Views
         {
             InitializeComponent();
         }
+
+        private void SingIn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+        }
     }
 }

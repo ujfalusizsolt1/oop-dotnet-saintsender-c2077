@@ -9,9 +9,6 @@
         xmlns:conv="clr-namespace:SaintSender.DesktopUI.Converters"
         mc:Ignorable="d"
         Title="InWatch" Height="600" Width="1000" FontSize="14">
-    <Window.DataContext>
-        <viewmodel:MainWindowViewModel />
-    </Window.DataContext>
     <Window.Resources>
         <conv:EmailAddressListConverter x:Key="converter" />
     </Window.Resources>
@@ -20,7 +17,8 @@
         Height="Auto" Margin="0">
         <Menu DockPanel.Dock="Top" Background="#FFA6BDD9">
             <MenuItem Name="signIn" Header="Sign Out" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
-            <MenuItem Name="refresh" Header="Refresh" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
+
+            <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
             <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14"  />
         </Menu>
         <Grid DockPanel.Dock="Left">

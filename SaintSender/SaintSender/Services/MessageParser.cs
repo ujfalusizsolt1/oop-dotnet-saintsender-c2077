@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 namespace SaintSender.Services
 {
-    public class MessageParser
+    public static class MessageParser
     {
-        public Mail ParseMessage(MimeMessage message)
+        public static Mail ParseMessage(MimeMessage message)
         {
-            int id = int.Parse(message.MessageId);
-            string sender = message.Sender.Address;
+            string sender = string.Join(", ", message.From);
 
             List<string> recievers = new List<string>();
             foreach (var adress in message.To.Mailboxes)
@@ -22,10 +21,10 @@ namespace SaintSender.Services
             string subject = message.Subject;
             string content = message.TextBody;
             bool isRead = false;
-            return new Mail(id, sender, recievers, date, subject, isRead, content);
+            return new Mail(sender, recievers, date, subject, isRead, content);
         }
 
-        public MimeMessage ConvertMessageToMail(Mail mail)
+        public static MimeMessage ConvertMessageToMail(Mail mail)
         {
             List<MailboxAddress> recipientMailboxes = new List<MailboxAddress>();
             foreach (var recipient in mail.Recievers)
