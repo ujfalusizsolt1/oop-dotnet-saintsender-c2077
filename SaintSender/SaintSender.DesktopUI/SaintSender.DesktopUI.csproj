@@ -72,6 +72,9 @@
     <Compile Include="Views\GetProWindow.xaml.cs">
       <DependentUpon>GetProWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WriteEmailWindow.xaml.cs">
+      <DependentUpon>WriteEmailWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +98,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\GetProWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WriteEmailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
