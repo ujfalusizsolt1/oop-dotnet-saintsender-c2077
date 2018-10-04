@@ -4,11 +4,64 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SaintSender.DesktopUI.Views"
+        xmlns:viewmodel="clr-namespace:SaintSender.DesktopUI.ViewModels"
+        xmlns:entities="clr-namespace:SaintSender.Entities;assembly=SaintSender"
         mc:Ignorable="d"
-        Title="SaintSender" Height="450" Width="800">
-    <Grid>
-        <TextBox Name="NameTxt" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Name="GreetBtn" Content="Greet" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="125,3,0,0" Click="GreetBtn_Click"/>
-        <TextBlock Name="ResultTxt" HorizontalAlignment="Left" Margin="10,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-    </Grid>
+        Title="InWatch" Height="600" Width="1000" FontSize="14">
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel />
+    </Window.DataContext>
+    <DockPanel
+        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        Height="Auto" Margin="0">
+        <Menu DockPanel.Dock="Top" Background="#FFA6BDD9">
+            <MenuItem Name="signIn" Header="Sign Out" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
+            <MenuItem Name="refresh" Header="Refresh" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
+        </Menu>
+        <Grid DockPanel.Dock="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Inbox.Mails}"
+                Grid.Column="0" ScrollViewer.CanContentScroll="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                Padding="0 10 0 10"
+                Background="#FFDEEDFF" BorderThickness="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10,0,10,10">
+                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                <TextBlock Text="Subject" FontWeight="Bold" Width="60"  Margin="0 0 10 0" />
+                                <TextBlock Text="{Binding Subject}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Sender" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
+                                <TextBlock Text="{Binding Sender}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Date" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
+                                <TextBlock Text="{Binding Date}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Read" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
+                                <CheckBox IsChecked="False" VerticalAlignment="Center">
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                                    </CheckBox.LayoutTransform>
+                                </CheckBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBox Grid.Column="1" IsReadOnly="True"
+                     Padding="10"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Visible"
+                     AcceptsReturn="True"
+                     Text="{Binding PlaceholderText}" BorderThickness="0">
+            </TextBox>
+        </Grid>
+    </DockPanel>
 </Window>
