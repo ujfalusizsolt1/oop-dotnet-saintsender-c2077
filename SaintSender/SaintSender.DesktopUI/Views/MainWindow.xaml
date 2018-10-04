@@ -18,9 +18,8 @@
         Height="Auto" Margin="0">
         <Menu DockPanel.Dock="Top" Background="#FFA6BDD9">
             <MenuItem Name="signOut" Header="Sign Out" Margin="10 0 0 0" Padding="5" FontSize="14" Click="SignOut_Click" />
-
-            <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
-            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" Click="newEmail_Click"  />
+            <MenuItem Name="refresh" Header="Refresh" IsEnabled="False" Margin="10 0 0 0" Padding="5" FontSize="14" />
+            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="5" FontSize="14" Click="newEmail_Click"  />
            <MenuItem Name="upgrade" Header="Upgrade to Pro" Click="Upgrade_Click" Margin="10 0 0 0" Padding="5" FontSize="14" />
         </Menu>
         <Grid DockPanel.Dock="Left">
