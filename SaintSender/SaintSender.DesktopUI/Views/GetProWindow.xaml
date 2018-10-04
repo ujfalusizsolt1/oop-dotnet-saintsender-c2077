@@ -1,0 +1,12 @@
+﻿<Window x:Class="SaintSender.DesktopUI.Views.GetProWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaintSender.DesktopUI.Views"
+        mc:Ignorable="d"
+        Title="Get Pro" Height="150" Width="530">
+    <StackPanel>
+        <TextBlock Text="Send $24.99 to PayPal.me/Richard.Hriech" FontSize="22"  FontWeight="Bold" Margin="40" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </StackPanel>
+</Window>

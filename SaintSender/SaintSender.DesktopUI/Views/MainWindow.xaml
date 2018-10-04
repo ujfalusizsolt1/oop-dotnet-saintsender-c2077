@@ -10,15 +10,17 @@
         mc:Ignorable="d"
         Title="InWatch" Height="600" Width="1000" FontSize="14">
     <Window.Resources>
-        <conv:EmailAddressListConverter x:Key="converter" />
+        <conv:EmailAddressListConverter x:Key="listConverter" />
+        <conv:SenderConverter x:Key="senderConverter" />
     </Window.Resources>
     <DockPanel
         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Height="Auto" Margin="0">
         <Menu DockPanel.Dock="Top" Background="#FFA6BDD9">
-            <MenuItem Name="signIn" Header="Sign Out" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
+            <MenuItem Name="signOut" Header="Sign Out" Margin="10 0 0 0" Padding="5" FontSize="14" Click="SignOut_Click" />
 
-            <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
+            <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="5" FontSize="14" IsEnabled="False" />
+            <MenuItem Name="upgrade" Header="Upgrade to Pro" Click="Upgrade_Click" Margin="10 0 0 0" Padding="5" FontSize="14" />
         </Menu>
         <Grid DockPanel.Dock="Left">
             <Grid.ColumnDefinitions>
@@ -40,7 +42,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Sender" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
-                                <TextBlock Text="{Binding Sender}" />
+                                <TextBlock Text="{Binding Sender, Converter={StaticResource senderConverter}}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Date" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
@@ -75,7 +77,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="10 0 10 0">
                         <TextBox IsReadOnly="True" Text="Receiver" FontWeight="Bold" Width="100" BorderThickness="0" />
-                        <TextBox IsReadOnly="True"  Text="{Binding SelectedMail.Recievers, Converter={StaticResource converter}, Mode=OneWay}" BorderThickness="0" />
+                        <TextBox IsReadOnly="True"  Text="{Binding SelectedMail.Recievers, Converter={StaticResource listConverter}, Mode=OneWay}" BorderThickness="0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Margin="10 0 10 0">
