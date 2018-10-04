@@ -1,4 +1,7 @@
-﻿using MimeKit;
+﻿using MailKit.Net.Imap;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 using SaintSender.Entities;
 using SaintSender.Services;
 using System;
@@ -12,48 +15,61 @@ namespace SaintSender.Entities
     public class Inbox
     {
         public List<Mail> Mails { get; private set; } = new List<Mail>();
+        private ConnectionHandler conn;
+        private Mail draft;
+
+        public Inbox()
+        {
+            conn = new ConnectionHandler();
+        }
 
         public List<Mail> GetMails()
         {
-            /*
-            get client
-            List<Mail> result = new List<Mail>;
-            var inbox = client.inbox;
+            ImapClient client = conn.client;
+            List<Mail> result = new List<Mail>();
+            var inbox = client.Inbox;
 
             for (int i = 0; i < inbox.Count; i++)
             {
-                result.Add(inbox.GetMessage(i));
+                var msg = inbox.GetMessage(i);
+                //result.Add(new Mail(int.Parse(msg.MessageId), msg.From.ToString(), msg.To.ToString(), DateTime.Parse(msg.Date), msg.Subject, false, msg.Body.ToString()));
+                //Mails.Add(inbox.GetMessage(i));
             }
 
             return result;
-            */
-            throw new NotImplementedException();
         }
 
-        public void OpenMail(int id)
+        //public void SendMail(Mail toSend)
+        //{
+        //    ImapClient client = conn.client;
+        //    var message = new MimeMessage();
+        //    message.From.Add(new MailboxAddress(toSend.Sender));
+        //    message.To.Add(new MailboxAddress(toSend.Reciever));
+        //    message.Subject = toSend.Subject;
+        //    message.Body = toSend.Content;
+        //    SaveDraft(message);
+
+        //    using (var sendingClient = new SmtpClient())
+        //    {
+        //        sendingClient.Connect("smtp.gmail.com", 587);
+
+        //        // use the OAuth2.0 access token obtained above
+        //        var oauth2 = new SaslMechanismOAuth2("c2077test@gmail.com", credential.Token.AccessToken);
+        //        sendingClient.Authenticate(oauth2);
+
+        //        sendingClient.Send(message);
+        //        sendingClient.Disconnect(true);
+        //    }
+        //}
+
+        public void SaveDraft(Mail newDraft)
         {
-            /*
-            get client;
-            var inbox = client.inbox;
-            inbox.GetMessage(id);
-            */
+            draft = newDraft;
         }
 
-        public void SendMail(Mail toSend)
+        private Mail ReOpenDraft()
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("sender Mail"));
-            message.To.Add(new MailboxAddress("receiver Mail"));
-            message.Subject = toSend.Subject;
-            //message.Body = toSend.Body;
-        }
-
-        public void SaveDraft()
-        {
-        }
-
-        private void ReOpenDraft()
-        {
+            return draft;
         }
     }
 }

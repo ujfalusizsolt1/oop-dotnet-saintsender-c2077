@@ -2,6 +2,7 @@
 using SaintSender.Entities;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SaintSender.Core.Tests
 {
@@ -14,8 +15,8 @@ namespace SaintSender.Core.Tests
         public void Setup()
         {
             int id = 0;
-            string sender = "testsender@codecool.com";
-            string reciever = "testreciever@codecool.com";
+            List<string> reciever = new List<string>() { "testsender@codecool.com" };
+            string sender = "testreciever@codecool.com";
             DateTime date = new DateTime(2011, 10, 15);
             string subject = "Testing";
             bool isRead = false;
@@ -35,8 +36,8 @@ namespace SaintSender.Core.Tests
         {
             ///Arrange
             int id = 0;
-            string sender = "Code@cool.com";
-            string reciever = "test@cool.com";
+            List<string> reciever = new List<string>() { "Code@cool.com" };
+            string sender = "test@cool.com";
             DateTime date = new DateTime(2001, 10, 1);
             string subject = "Testing";
             bool isRead = false;
@@ -56,7 +57,7 @@ namespace SaintSender.Core.Tests
             ArrayList actualArray = new ArrayList();
             actualArray.Add(testMail.Id);
             actualArray.Add(testMail.Sender);
-            actualArray.Add(testMail.Reciever);
+            actualArray.Add(testMail.Recievers);
             actualArray.Add(testMail.Date);
             actualArray.Add(testMail.Subject);
             actualArray.Add(testMail.IsRead);
