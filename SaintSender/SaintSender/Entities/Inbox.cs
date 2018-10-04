@@ -17,22 +17,20 @@ namespace SaintSender.Entities
         public List<Mail> Mails { get; private set; } = new List<Mail>();
         private ConnectionHandler conn;
         private Mail draft;
-        private MessageParser parser;
 
         public Inbox()
         {
             conn = new ConnectionHandler();
-            parser = new MessageParser();
         }
 
         public List<Mail> GetMails()
         {
             ImapClient client = conn.client;
             var inbox = client.Inbox;
-            
+
             for (int i = 0; i < inbox.Count; i++)
             {
-                var msg = parser.ParseMessage(inbox.GetMessage(i));
+                var msg = MessageParser.ParseMessage(inbox.GetMessage(i));
                 Mails.Add(msg);
             }
 
@@ -43,20 +41,20 @@ namespace SaintSender.Entities
         {
             ImapClient client = conn.client;
             SaveDraft(toSend);
-            //var message = parser.ParseMessage(toSend);
+            var message = MessageParser.ConvertMessageToMail(toSend);
 
-        //    using (var sendingClient = new SmtpClient())
-        //    {
-        //        sendingClient.Connect("smtp.gmail.com", 587);
+            using (var sendingClient = new SmtpClient())
+            {
+                sendingClient.Connect("smtp.gmail.com", 587);
 
-        //        // use the OAuth2.0 access token obtained above
-        //        var oauth2 = new SaslMechanismOAuth2("c2077test@gmail.com", credential.Token.AccessToken);
-        //        sendingClient.Authenticate(oauth2);
+                // use the OAuth2.0 access token obtained above
+                var oauth2 = new SaslMechanismOAuth2("c2077test@gmail.com", credential.Token.AccessToken);
+                sendingClient.Authenticate(oauth2);
 
-        //        sendingClient.Send(message);
-        //        sendingClient.Disconnect(true);
-        //    }
-        //}
+                sendingClient.Send(message);
+                sendingClient.Disconnect(true);
+            }
+        }
 
         public void SaveDraft(Mail newDraft)
         {
