@@ -14,7 +14,6 @@ namespace SaintSender.Core.Tests
         [SetUp]
         public void Setup()
         {
-            int id = 0;
             List<string> reciever = new List<string>() { "testsender@codecool.com" };
             string sender = "testreciever@codecool.com";
             DateTime date = new DateTime(2011, 10, 15);
@@ -22,7 +21,7 @@ namespace SaintSender.Core.Tests
             bool isRead = false;
             string content = "This is the content of this test email";
 
-            testEmail = new Mail(id, sender, reciever, date, subject, isRead, content);
+            testEmail = new Mail(sender, reciever, date, subject, isRead, content);
         }
 
         [TearDown]
@@ -35,7 +34,7 @@ namespace SaintSender.Core.Tests
         public void TestMailCtor_PassedAllArguments_SetContentProperly()
         {
             ///Arrange
-            int id = 0;
+
             List<string> reciever = new List<string>() { "Code@cool.com" };
             string sender = "test@cool.com";
             DateTime date = new DateTime(2001, 10, 1);
@@ -45,7 +44,7 @@ namespace SaintSender.Core.Tests
 
             ///Act
             ArrayList expectedArray = new ArrayList();
-            expectedArray.Add(id);
+
             expectedArray.Add(sender);
             expectedArray.Add(reciever);
             expectedArray.Add(date);
@@ -53,9 +52,9 @@ namespace SaintSender.Core.Tests
             expectedArray.Add(isRead);
             expectedArray.Add(content);
 
-            Mail testMail = new Mail(id, sender, reciever, date, subject, isRead, content);
+            Mail testMail = new Mail(sender, reciever, date, subject, isRead, content);
             ArrayList actualArray = new ArrayList();
-            actualArray.Add(testMail.Id);
+
             actualArray.Add(testMail.Sender);
             actualArray.Add(testMail.Recievers);
             actualArray.Add(testMail.Date);

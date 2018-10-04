@@ -9,8 +9,7 @@ namespace SaintSender.Services
     {
         public static Mail ParseMessage(MimeMessage message)
         {
-            int id = int.Parse(message.MessageId);
-            string sender = message.Sender.Address;
+            string sender = string.Join(", ", message.From);
 
             List<string> recievers = new List<string>();
             foreach (var adress in message.To.Mailboxes)
@@ -22,7 +21,7 @@ namespace SaintSender.Services
             string subject = message.Subject;
             string content = message.TextBody;
             bool isRead = false;
-            return new Mail(id, sender, recievers, date, subject, isRead, content);
+            return new Mail(sender, recievers, date, subject, isRead, content);
         }
 
         public static MimeMessage ConvertMessageToMail(Mail mail)
