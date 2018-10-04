@@ -37,7 +37,7 @@ namespace SaintSender.Entities
 
         public void GetMails()
         {
-            ImapClient client = conn.client;
+            ImapClient client = conn.Client;
             var inbox = client.Inbox;
             inbox.Open(MailKit.FolderAccess.ReadOnly);
 
@@ -50,7 +50,7 @@ namespace SaintSender.Entities
 
         public void SendMail(Mail toSend)
         {
-            ImapClient client = conn.client;
+            ImapClient client = conn.Client;
             SaveDraft(toSend);
             var message = MessageParser.ConvertMessageToMail(toSend);
 
