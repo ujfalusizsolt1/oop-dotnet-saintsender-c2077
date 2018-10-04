@@ -43,39 +43,34 @@ namespace SaintSender.Entities
         public void GetMails()
         {
             ImapClient client = conn.Client;
-            List<Mail> result = new List<Mail>();
             var inbox = client.Inbox;
             inbox.Open(MailKit.FolderAccess.ReadOnly);
 
             for (int i = inbox.Count - 1; i >= 0; i--)
             {
-                var msg = inbox.GetMessage(i);
-                Mails.Add(MessageParser.ParseMessage(msg));
+                var msg = MessageParser.ParseMessage(inbox.GetMessage(i));
+                Mails.Add(msg);
             }
         }
 
-        //public void SendMail(Mail toSend)
-        //{
-        //    ImapClient client = conn.client;
-        //    var message = new MimeMessage();
-        //    message.From.Add(new MailboxAddress(toSend.Sender));
-        //    message.To.Add(new MailboxAddress(toSend.Reciever));
-        //    message.Subject = toSend.Subject;
-        //    message.Body = toSend.Content;
-        //    SaveDraft(message);
+        public void SendMail(Mail toSend)
+        {
+            ImapClient client = conn.Client;
+            SaveDraft(toSend);
+            var message = MessageParser.ConvertMessageToMail(toSend);
 
-        //    using (var sendingClient = new SmtpClient())
-        //    {
-        //        sendingClient.Connect("smtp.gmail.com", 587);
+            using (var sendingClient = new SmtpClient())
+            {
+                sendingClient.Connect("smtp.gmail.com", 587);
 
-        //        // use the OAuth2.0 access token obtained above
-        //        var oauth2 = new SaslMechanismOAuth2("c2077test@gmail.com", credential.Token.AccessToken);
-        //        sendingClient.Authenticate(oauth2);
+                // disable the XOAUTH2 authentication mechanism.
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                sendingClient.Authenticate(conn.UserName, conn.Password);
 
-        //        sendingClient.Send(message);
-        //        sendingClient.Disconnect(true);
-        //    }
-        //}
+                sendingClient.Send(message);
+                sendingClient.Disconnect(true);
+            }
+        }
 
         public void SaveDraft(Mail newDraft)
         {
