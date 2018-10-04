@@ -47,11 +47,9 @@ namespace SaintSender.Entities
             {
                 sendingClient.Connect("smtp.gmail.com", 587);
 
-                // Note: since we don't have an OAuth2 token, disable
-                // the XOAUTH2 authentication mechanism.
+                // disable the XOAUTH2 authentication mechanism.
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                // use the OAuth2.0 access token obtained above
-                var oauth2 = new SaslMechanismOAuth2("c2077test@gmail.com", "SuperSecure1234");
+                sendingClient.Authenticate("c2077test@gmail.com", "SuperSecure1234");
 
                 sendingClient.Send(message);
                 sendingClient.Disconnect(true);
