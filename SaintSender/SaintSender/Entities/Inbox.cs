@@ -6,35 +6,46 @@ using SaintSender.Entities;
 using SaintSender.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SaintSender.Entities
 {
-    public class Inbox
+    public class Inbox : INotifyPropertyChanged
     {
-        public List<Mail> Mails { get; private set; } = new List<Mail>();
+        public List<Mail> Mails
+        {
+            get { return _mails; }
+            private set
+            {
+                _mails = value;
+                OnPropertyRaised("Mails");
+            }
+        }
         private ConnectionHandler conn;
         private Mail draft;
+        private List<Mail> _mails = new List<Mail>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Inbox()
         {
             conn = new ConnectionHandler();
         }
 
-        public List<Mail> GetMails()
+        public void GetMails()
         {
             ImapClient client = conn.client;
             var inbox = client.Inbox;
+            inbox.Open(MailKit.FolderAccess.ReadOnly);
 
             for (int i = 0; i < inbox.Count; i++)
             {
                 var msg = MessageParser.ParseMessage(inbox.GetMessage(i));
                 Mails.Add(msg);
             }
-
-            return Mails;
         }
 
         public void SendMail(Mail toSend)
@@ -64,6 +75,11 @@ namespace SaintSender.Entities
         private Mail ReOpenDraft()
         {
             return draft;
+        }
+
+        protected void OnPropertyRaised(string propertyname)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
     }
 }
