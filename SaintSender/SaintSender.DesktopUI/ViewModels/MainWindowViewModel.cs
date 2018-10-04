@@ -1,5 +1,6 @@
 ﻿using SaintSender.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace SaintSender.DesktopUI.ViewModels
 {
@@ -10,16 +11,17 @@ namespace SaintSender.DesktopUI.ViewModels
 
         public MainWindowViewModel()
         {
-            Inbox.Mails.Add(new Mail(1, "sender1@sender.com", string.Empty, DateTime.Now, "This is the first subject", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(2, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(3, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(4, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(5, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(6, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(7, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(8, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(9, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
-            Inbox.Mails.Add(new Mail(10, "sender2@sender.com", string.Empty, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            List<string> recipients = new List<string>();
+            Inbox.Mails.Add(new Mail(1, "sender1@sender.com", recipients, DateTime.Now, "This is the first subject", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(2, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(3, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(4, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(5, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(6, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(7, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(8, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(9, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
+            Inbox.Mails.Add(new Mail(10, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
         }
     }
 }
