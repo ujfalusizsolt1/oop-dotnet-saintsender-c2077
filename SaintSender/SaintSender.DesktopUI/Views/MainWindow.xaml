@@ -8,7 +8,7 @@
         xmlns:entities="clr-namespace:SaintSender.Entities;assembly=SaintSender"
         xmlns:conv="clr-namespace:SaintSender.DesktopUI.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="InWatch" Height="600" Width="1000" FontSize="14">
+        Title="InWatch" Height="600" Width="1000" FontSize="16">
     <Window.Resources>
         <conv:EmailAddressListConverter x:Key="listConverter" />
         <conv:SenderConverter x:Key="senderConverter" />
@@ -20,8 +20,8 @@
             <MenuItem Name="signOut" Header="Sign Out" Margin="10 0 0 0" Padding="5" FontSize="14" Click="SignOut_Click" />
 
             <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
-            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" Click="newEmail_Click"  />
-           <MenuItem Name="upgrade" Header="Upgrade to Pro" Click="Upgrade_Click" Margin="10 0 0 0" Padding="5" FontSize="14" />
+            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" Click="newEmail_Click" />
+            <MenuItem Name="upgrade" Header="Upgrade to Pro" Click="Upgrade_Click" Margin="10 0 0 0" Padding="5" FontSize="14" />
         </Menu>
         <Grid DockPanel.Dock="Left">
             <Grid.ColumnDefinitions>
@@ -64,26 +64,26 @@
             <DockPanel Grid.Column="1" Background="#FFF0F0F0">
                 <StackPanel Name="selectedMailDataStackPanel" DockPanel.Dock="Top"
                             Visibility="Hidden"
-                             Background="#FFFFFFFF">
+                             Background="#FFDEEDFF">
                     <StackPanel Orientation="Horizontal"
                                 Margin="10 10 10 0">
-                        <TextBox IsReadOnly="True" Text="Subject" FontWeight="Bold" Width="100" BorderThickness="0" />
-                        <TextBox IsReadOnly="True"  Text="{Binding SelectedMail.Subject, Mode=OneWay}" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Subject" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Subject, Mode=OneWay}" BorderThickness="0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Margin="10 0 10 0">
-                        <TextBox IsReadOnly="True" Text="Sender" FontWeight="Bold" Width="100" BorderThickness="0" />
-                        <TextBox IsReadOnly="True"  Text="{Binding SelectedMail.Sender, Mode=OneWay}" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Sender" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Sender, Mode=OneWay}" BorderThickness="0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Margin="10 0 10 0">
-                        <TextBox IsReadOnly="True" Text="Receiver" FontWeight="Bold" Width="100" BorderThickness="0" />
-                        <TextBox IsReadOnly="True"  Text="{Binding SelectedMail.Recievers, Converter={StaticResource listConverter}, Mode=OneWay}" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Receiver" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Recievers, Converter={StaticResource listConverter}, Mode=OneWay}" BorderThickness="0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
-                                Margin="10 0 10 0">
-                        <TextBox IsReadOnly="True" Text="Date" FontWeight="Bold" Width="100" BorderThickness="0" />
-                        <TextBox IsReadOnly="True"  Text="{Binding SelectedMail.Date, Mode=OneWay}" BorderThickness="0" />
+                                Margin="10 0 10 10">
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Date" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Date, Mode=OneWay}" BorderThickness="0" />
                     </StackPanel>
                 </StackPanel>
                 <TextBox Name="mailContentTextBox" DockPanel.Dock="Top" IsReadOnly="True"
