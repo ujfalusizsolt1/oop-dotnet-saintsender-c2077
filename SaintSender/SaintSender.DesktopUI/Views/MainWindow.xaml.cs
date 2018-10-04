@@ -38,5 +38,7 @@ namespace SaintSender.DesktopUI.Views
             selectedMailDataStackPanel.Visibility = Visibility.Visible;
             mailContentTextBox.Visibility = Visibility.Visible;
         }
+
+       
     }
 }
