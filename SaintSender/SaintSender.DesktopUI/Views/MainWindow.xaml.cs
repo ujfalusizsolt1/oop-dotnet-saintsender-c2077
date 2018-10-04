@@ -1,5 +1,6 @@
 ﻿using SaintSender.DesktopUI.ViewModels;
 using SaintSender.Entities;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,13 +14,16 @@ namespace SaintSender.DesktopUI.Views
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            var mainWindowViewModel = (MainWindowViewModel)DataContext;
-            if (mainWindowViewModel.isLoggedIn == false)
+            var loginWindow = new LoginWindow();
+            var dialogResult = loginWindow.ShowDialog();
+            if (dialogResult == true)
             {
+                DataContext = new MainWindowViewModel(loginWindow.userNameTextBox.Text, loginWindow.passwordBox.Password);
+            }
+            else
+            {
+                this.Close();
             }
         }
 
@@ -31,6 +35,14 @@ namespace SaintSender.DesktopUI.Views
             ((MainWindowViewModel)DataContext).SelectedMail = selectedItem;
             selectedMailDataStackPanel.Visibility = Visibility.Visible;
             mailContentTextBox.Visibility = Visibility.Visible;
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("szex");
+            ((MainWindowViewModel)DataContext).SelectedMail = null;
+            mailListBox.SelectedItem = null;
+            ((MainWindowViewModel)DataContext).Inbox.GetMails();
         }
     }
 }

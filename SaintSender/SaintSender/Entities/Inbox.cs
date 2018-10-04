@@ -35,6 +35,11 @@ namespace SaintSender.Entities
             conn = new ConnectionHandler();
         }
 
+        public Inbox(string userName, string password)
+        {
+            conn = new ConnectionHandler(userName, password);
+        }
+
         public void GetMails()
         {
             ImapClient client = conn.Client;
@@ -42,7 +47,7 @@ namespace SaintSender.Entities
             var inbox = client.Inbox;
             inbox.Open(MailKit.FolderAccess.ReadOnly);
 
-            for (int i = 0; i < inbox.Count; i++)
+            for (int i = inbox.Count - 1; i >= 0; i--)
             {
                 var msg = inbox.GetMessage(i);
                 Mails.Add(MessageParser.ParseMessage(msg));
