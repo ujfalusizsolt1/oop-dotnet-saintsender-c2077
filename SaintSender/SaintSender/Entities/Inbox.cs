@@ -6,6 +6,7 @@ using SaintSender.Entities;
 using SaintSender.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,6 @@ namespace SaintSender.Entities
                 //result.Add(new Mail(int.Parse(msg.MessageId), msg.From.ToString(), msg.To.ToString(), DateTime.Parse(msg.Date), msg.Subject, false, msg.Body.ToString()));
                 //Mails.Add(inbox.GetMessage(i));
             }
-
             return result;
         }
 

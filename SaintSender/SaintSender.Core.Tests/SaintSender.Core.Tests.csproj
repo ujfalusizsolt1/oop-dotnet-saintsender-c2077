@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InboxTests.cs" />
     <Compile Include="EmailAddressListConverterTests.cs" />
     <Compile Include="GreeterServiceTests.cs" />
     <Compile Include="MailTests.cs" />

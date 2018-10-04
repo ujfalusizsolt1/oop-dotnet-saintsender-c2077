@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SaintSender.DesktopUI.ViewModels
 {
@@ -26,6 +27,8 @@ namespace SaintSender.DesktopUI.ViewModels
 
         public MainWindowViewModel()
         {
+            Console.WriteLine("Inbox.GetMails");
+            Debug.WriteLine(Inbox.GetMails().GetType());
             List<string> recipients = new List<string>() { "It's a me, Mario!", "It's a me, Luigi!" };
             Inbox.Mails.Add(new Mail(1, "sender1@sender.com", recipients, DateTime.Now, "This is the first subject", false, "This is the messsage body."));
             Inbox.Mails.Add(new Mail(2, "sender2@sender.com", recipients, DateTime.Now, "This is the subject.", false, "This is the messsage body."));
