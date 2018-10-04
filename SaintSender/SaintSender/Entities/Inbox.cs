@@ -17,10 +17,12 @@ namespace SaintSender.Entities
         public List<Mail> Mails { get; private set; } = new List<Mail>();
         private ConnectionHandler conn;
         private Mail draft;
+        private MessageParser parser;
 
-        public Inbox(List<Mail> mails)
+        public Inbox()
         {
             conn = new ConnectionHandler();
+            parser = new MessageParser();
         }
 
         public List<Mail> GetMails()
@@ -28,16 +30,15 @@ namespace SaintSender.Entities
             ImapClient client = conn.client;
             List<Mail> result = new List<Mail>();
             var inbox = client.Inbox;
-
+            
             for (int i = 0; i < inbox.Count; i++)
             {
-                var msg = inbox.GetMessage(i);
-                //result.Add(new Mail(int.Parse(msg.MessageId), msg.From.ToString(), msg.To.ToString(), DateTime.Parse(msg.Date), msg.Subject, false, msg.Body.ToString()));
-                //Mails.Add(inbox.GetMessage(i));
+                var msg = parser.ParseMessage(inbox.GetMessage(i));
+                result.Add(msg);
+                Mails.Add(msg);
             }
 
             return result;
-            
         }
 
         public void SendMail(Mail toSend)
