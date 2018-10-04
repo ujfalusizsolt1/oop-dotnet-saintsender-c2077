@@ -24,9 +24,9 @@ namespace SaintSender.DesktopUI.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(string userName, string password)
         {
-            Inbox = new Inbox();
+            Inbox = new Inbox(userName, password);
             Inbox.GetMails();
         }
 
