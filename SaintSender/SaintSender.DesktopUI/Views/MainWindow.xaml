@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:SaintSender.DesktopUI.ViewModels"
         xmlns:entities="clr-namespace:SaintSender.Entities;assembly=SaintSender"
         xmlns:conv="clr-namespace:SaintSender.DesktopUI.Converters"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="InWatch" Height="600" Width="1000" FontSize="14">
     <Window.Resources>
         <conv:EmailAddressListConverter x:Key="converter" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SaintSender.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,16 @@ namespace SaintSender.DesktopUI.Views
 
         private void SingIn_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            try
+            {
+                ConnectionHandler conn = new ConnectionHandler(userNameTextBox.Text, passwordBox.Password);
+                conn.TryToConnect();
+                this.DialogResult = true;
+            }
+            catch (MailKit.Security.AuthenticationException)
+            {
+                MessageBox.Show("Invalid credentials. Try again!");
+            } 
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
