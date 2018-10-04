@@ -49,7 +49,7 @@ namespace SaintSender.Entities
 
                 // disable the XOAUTH2 authentication mechanism.
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                sendingClient.Authenticate("c2077test@gmail.com", "SuperSecure1234");
+                sendingClient.Authenticate(conn.UserName, conn.Password);
 
                 sendingClient.Send(message);
                 sendingClient.Disconnect(true);
