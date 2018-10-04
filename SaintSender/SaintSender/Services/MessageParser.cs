@@ -24,5 +24,25 @@ namespace SaintSender.Services
             bool isRead = false;
             return new Mail(id, sender, recievers, date, subject, isRead, content);
         }
+
+        public MimeMessage ConvertMessageToMail(Mail mail)
+        {
+            List<MailboxAddress> recipientMailboxes = new List<MailboxAddress>();
+            foreach (var recipient in mail.Recievers)
+            {
+                recipientMailboxes.Add(new MailboxAddress(recipient));
+            }
+
+            MimeMessage message = new MimeMessage();
+            message.From.Add(new MailboxAddress(mail.Sender));
+            message.To.AddRange(recipientMailboxes);
+            message.Subject = mail.Subject;
+            message.Body = new TextPart("plain") {
+                Text = mail.Content
+            };
+
+            return message;
+        }
+
     }
 }
