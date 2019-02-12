@@ -1,0 +1,99 @@
+﻿<Window x:Class="SaintSender.DesktopUI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaintSender.DesktopUI.Views"
+        xmlns:viewmodel="clr-namespace:SaintSender.DesktopUI.ViewModels"
+        xmlns:entities="clr-namespace:SaintSender.Entities;assembly=SaintSender"
+        xmlns:conv="clr-namespace:SaintSender.DesktopUI.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="InWatch" Height="600" Width="1000" FontSize="16">
+    <Window.Resources>
+        <conv:EmailAddressListConverter x:Key="listConverter" />
+        <conv:SenderConverter x:Key="senderConverter" />
+    </Window.Resources>
+    <DockPanel
+        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        Height="Auto" Margin="0">
+        <Menu DockPanel.Dock="Top" Background="#FFA6BDD9">
+            <MenuItem Name="signOut" Header="Sign Out" Margin="10 0 0 0" Padding="5" FontSize="14" Click="SignOut_Click" />
+
+            <MenuItem Name="refresh" Header="Refresh" Click="Refresh_Click" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" />
+            <MenuItem Name="newEmail" Header="New Email" Margin="10 0 0 0" Padding="0 5 0 5" FontSize="14" Click="newEmail_Click" />
+            <MenuItem Name="upgrade" Header="Upgrade to Pro" Click="Upgrade_Click" Margin="10 0 0 0" Padding="5" FontSize="14" />
+        </Menu>
+        <Grid DockPanel.Dock="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <ListBox Name="mailListBox" ItemsSource="{Binding Inbox.Mails}"
+                     SelectionMode="Single"
+                     Grid.Column="0" ScrollViewer.CanContentScroll="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                Padding="0 10 0 10"
+                Background="#FFDEEDFF" BorderThickness="0" SelectionChanged="MailListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10,0,10,10">
+                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                <TextBlock Text="Subject" FontWeight="Bold" Width="60"  Margin="0 0 10 0" />
+                                <TextBlock Text="{Binding Subject}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Sender" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
+                                <TextBlock Text="{Binding Sender, Converter={StaticResource senderConverter}}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Date" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
+                                <TextBlock Text="{Binding Date}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Read" FontWeight="Bold" Width="60" Margin="0 0 10 0" />
+                                <CheckBox IsChecked="False" VerticalAlignment="Center">
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                                    </CheckBox.LayoutTransform>
+                                </CheckBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <DockPanel Grid.Column="1" Background="#FFF0F0F0">
+                <StackPanel Name="selectedMailDataStackPanel" DockPanel.Dock="Top"
+                            Visibility="Hidden"
+                             Background="#FFDEEDFF">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10 10 10 0">
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Subject" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Subject, Mode=OneWay}" BorderThickness="0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10 0 10 0">
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Sender" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Sender, Mode=OneWay}" BorderThickness="0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10 0 10 0">
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Receiver" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Recievers, Converter={StaticResource listConverter}, Mode=OneWay}" BorderThickness="0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10 0 10 10">
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True" Text="Date" FontWeight="Bold" Width="100" BorderThickness="0" />
+                        <TextBox Background="#FFDEEDFF" IsReadOnly="True"  Text="{Binding SelectedMail.Date, Mode=OneWay}" BorderThickness="0" />
+                    </StackPanel>
+                </StackPanel>
+                <TextBox Name="mailContentTextBox" DockPanel.Dock="Top" IsReadOnly="True"
+                         Padding="10"
+                         Visibility="Hidden"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Visible"
+                     AcceptsReturn="True"
+                     Text="{Binding SelectedMail.Content, Mode=OneWay}" BorderThickness="0" />
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</Window>

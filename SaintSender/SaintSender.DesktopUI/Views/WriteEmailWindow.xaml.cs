@@ -10,28 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SaintSender.Services;
 
-namespace SaintSender.DesktopUI
+namespace SaintSender.DesktopUI.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WriteEmailWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WriteEmailWindow : Window
     {
-        public MainWindow()
+        public WriteEmailWindow()
         {
             InitializeComponent();
+
         }
 
-        private void GreetBtn_Click(object sender, RoutedEventArgs e)
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            var service = new GreetService();
-            var name = NameTxt.Text;
-            var greeting = service.Greet(name);
-            ResultTxt.Text = greeting;
+            this.DialogResult = true;
+        }
+
+        private void cancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }
